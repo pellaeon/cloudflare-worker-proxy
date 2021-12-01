@@ -25,3 +25,7 @@ Now you have a transparent proxy listening on port 2000.
 ```
 sudo -u proxieduser curl --cacert ~/.mitmproxy/mitmproxy-ca-cert.pem -v -d '{"key": "value"}' https://httpbin.org/post
 ```
+
+## Note
+
+- HTTP is stateless, so is Cloudflare workers. Each individual request made by the application, regardless of host or IP, will be treated individually by the Cloudflare worker. The worker will handle application requests by making another request of its own, each request made by a Cloudflare worker will use a random Cloudflare IP address. This characteristic will make some websites break when using this proxy, these mostly include websites that require logins.
